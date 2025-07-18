@@ -11,14 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('attendances', function (Blueprint $table) {
-            $table->id();
-            $table->string('employee_id', 50);
-            $table->string('attendance_id', 100);
-            $table->timestamp('clock_in')->nullable();
-            $table->timestamp('clock_out')->nullable();
-            $table->timestamps();
-        });
+       Schema::create('attendances', function (Blueprint $table) {
+    $table->id();
+    $table->string('employee_id', 50);
+    $table->foreign('employee_id')->references('employee_id')->on('employees')->onDelete('cascade');
+    $table->string('attendance_id', 100)->unique(); // <-- Tambahkan ini!
+    $table->timestamp('clock_in')->nullable();
+    $table->timestamp('clock_out')->nullable();
+    $table->timestamps();
+});
+
     }
 
     /**
