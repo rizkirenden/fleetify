@@ -40,8 +40,8 @@ class DepartmentController extends Controller
     {
         $request->validate([
             'department_name' => 'required|string|max:255',
-            'max_clock_in_time' => 'required|date_format:H:i',
-            'max_clock_out_time' => 'required|date_format:H:i',
+            'max_clock_in_time' => 'required|date_format:H:i:s',
+            'max_clock_out_time' => 'required|date_format:H:i:s',
         ]);
 
         $department->update($request->all());

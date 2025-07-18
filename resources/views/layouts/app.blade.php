@@ -9,10 +9,20 @@
 </head>
 
 <body class="bg-gray-100 text-gray-800">
-    <nav class="bg-white shadow px-6 py-4">
-        <div class="flex justify-between items-center">
-            <h1 class="text-xl font-bold">Manajemen Departemen</h1>
-            <a href="{{ route('departments.index') }}" class="text-blue-600 hover:underline">Home</a>
+    <nav class="bg-white shadow-md px-6 py-4 sticky top-0 z-50">
+        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+            <div>
+                <h1 class="text-2xl font-semibold text-gray-800">Aplikasi Manajemen</h1>
+                <p class="text-sm text-gray-500">CRUD Departemen & Employee</p>
+            </div>
+            <div class="flex flex-wrap gap-4 text-sm font-medium">
+                <a href="{{ route('departments.index') }}" class="text-gray-600 hover:text-blue-600 transition">
+                    Departemen
+                </a>
+                <a href="{{ route('employees.index') }}" class="text-gray-600 hover:text-blue-600 transition">
+                    Employee
+                </a>
+            </div>
         </div>
     </nav>
 
