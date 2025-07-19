@@ -22,6 +22,9 @@
                 <a href="{{ route('employees.index') }}" class="text-gray-600 hover:text-blue-600 transition">
                     Employee
                 </a>
+                <a href="{{ route('attendance.index') }}" class="text-gray-600 hover:text-blue-600 transition">
+                    Attendance
+                </a>
             </div>
         </div>
     </nav>

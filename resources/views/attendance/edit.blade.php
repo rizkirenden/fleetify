@@ -1,16 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    @vite('resources/js/app.js')
-    <title>Edit Attendance</title>
-</head>
+@section('title', 'Absen Keluar')
 
-<body>
+@section('content')
+    <div class="p-4">
+        <h1 class="text-xl font-bold mb-4">Absen Keluar</h1>
 
-</body>
+        <form action="{{ route('attendance.update', $attendance->attendance_id) }}" method="POST">
+            @csrf
+            @method('PUT')
 
-</html>
+            @include('attendance.form', [
+                'submit' => 'Absen Keluar',
+                'attendance' => $attendance,
+            ])
+        </form>
+    </div>
+@endsection

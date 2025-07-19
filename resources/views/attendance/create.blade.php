@@ -1,16 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    @vite('resources/js/app.js')
-    <title>Tambah Attendance</title>
-</head>
+@section('title', 'Tambah Attendance')
 
-<body>
+@section('content')
+    <div class="p-4">
+        <h1 class="text-xl font-bold mb-4">Tambah Attendance</h1>
 
-</body>
+        @if ($errors->any())
+            <div class="mb-4 text-red-600">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>- {{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-</html>
+        <form action="{{ route('attendance.store') }}" method="POST">
+            @csrf
+            @include('attendance.form', [
+                'submit' => 'Absen Masuk',
+                'departments' => $departments,
+                'employees' => $employees,
+            ])
+        </form>
+        <script>
+            document.getElementById('clientTime').value = new Date().toISOString();
+            // atau format lain yang sesuai
+        </script>
+    </div>
+@endsection
