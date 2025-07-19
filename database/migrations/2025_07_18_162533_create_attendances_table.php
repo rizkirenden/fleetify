@@ -12,14 +12,16 @@ return new class extends Migration
     public function up(): void
     {
        Schema::create('attendances', function (Blueprint $table) {
-    $table->id();
-    $table->string('employee_id', 50);
-    $table->foreign('employee_id')->references('employee_id')->on('employees')->onDelete('cascade');
-    $table->string('attendance_id', 100)->unique(); // <-- Tambahkan ini!
+    $table->id(); // PK
+    $table->string('employee_id', 50); // <-- tambahkan kolom ini
+    $table->string('attendance_id', 100)->unique();
     $table->timestamp('clock_in')->nullable();
     $table->timestamp('clock_out')->nullable();
     $table->timestamps();
+
+    $table->foreign('employee_id')->references('employee_id')->on('employees')->onDelete('cascade');
 });
+
 
     }
 

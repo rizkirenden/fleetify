@@ -12,16 +12,18 @@ return new class extends Migration
     public function up(): void
     {
        Schema::create('attendance_histories', function (Blueprint $table) {
-        $table->id();
-        $table->string('employee_id', 50);
-        $table->foreign('employee_id')->references('employee_id')->on('employees')->onDelete('cascade');
-        $table->string('attendance_id', 100);
-        $table->foreign('attendance_id')->references('attendance_id')->on('attendances')->onDelete('cascade');
-        $table->timestamp('date_attendance');
-        $table->tinyInteger('attendance_type');
-        $table->text('description')->nullable();
-        $table->timestamps();
+    $table->id(); // PK
+    $table->string('employee_id', 50);      // <-- tambahkan kolom ini
+    $table->string('attendance_id', 100);   // <-- tambahkan kolom ini
+    $table->timestamp('date_attendance');
+    $table->tinyInteger('attendance_type')->comment('1 = in, 2 = out');
+    $table->text('description')->nullable();
+    $table->timestamps();
+
+    $table->foreign('employee_id')->references('employee_id')->on('employees')->onDelete('cascade');
+    $table->foreign('attendance_id')->references('attendance_id')->on('attendances')->onDelete('cascade');
 });
+
     }
 
     /**

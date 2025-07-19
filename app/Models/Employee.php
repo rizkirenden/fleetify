@@ -9,9 +9,6 @@ class Employee extends Model
 {
     use HasFactory;
 
-    /**
-     * Kolom yang bisa diisi secara massal.
-     */
     protected $fillable = [
         'employee_id',
         'department_id',
@@ -19,25 +16,17 @@ class Employee extends Model
         'address',
     ];
 
-    /**
-     * Relasi: Employee milik satu Department
-     */
+
     public function department()
     {
-        return $this->belongsTo(Department::class);
+        return $this->belongsTo(Department::class, 'department_id', 'id');
     }
 
-    /**
-     * Relasi: Employee memiliki banyak Attendance
-     */
     public function attendances()
     {
         return $this->hasMany(Attendance::class, 'employee_id', 'employee_id');
     }
 
-    /**
-     * Relasi: Employee memiliki banyak AttendanceHistory
-     */
     public function attendanceHistories()
     {
         return $this->hasMany(AttendanceHistory::class, 'employee_id', 'employee_id');
