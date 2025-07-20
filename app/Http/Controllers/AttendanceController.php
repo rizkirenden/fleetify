@@ -67,10 +67,7 @@ class AttendanceController extends Controller
                         ' (Max: ' . $maxClockInTime->format('H:i') . ')'
     ]);
 
-    return response()->json([
-        'message' => 'Absen masuk berhasil',
-        'data' => $attendance
-    ], 201);
+    return redirect()->route('attendance.index')->with('success', 'Attandence created successfully');
 }
 
     public function edit($attendance_id)
@@ -103,9 +100,6 @@ class AttendanceController extends Controller
                         ' (Min: ' . $maxClockOutTime->format('H:i') . ')'
     ]);
 
-    return response()->json([
-        'message' => 'Absen keluar berhasil',
-        'data' => $attendance
-    ]);
+    return redirect()->route('attendance.index')->with('success', 'Attandence update successfuly');
 }
 }

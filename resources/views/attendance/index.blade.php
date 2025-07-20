@@ -16,9 +16,15 @@
         </div>
 
         @if (session('success'))
-            <div class="bg-green-100 border border-green-300 text-green-700 px-4 py-3 rounded">
-                {{ session('success') }}
-            </div>
+            <script>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: '{{ session('success') }}',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            </script>
         @endif
 
         <div class="overflow-x-auto">

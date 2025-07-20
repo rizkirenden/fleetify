@@ -16,9 +16,15 @@
         </div>
 
         @if (session('success'))
-            <div class="bg-green-100 border border-green-300 text-green-700 px-4 py-3 rounded">
-                {{ session('success') }}
-            </div>
+            <script>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: '{{ session('success') }}',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            </script>
         @endif
 
         <div class="overflow-x-auto">
@@ -46,9 +52,16 @@
                                     onsubmit="return confirm('Yakin ingin menghapus?')">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="text-red-500 hover:text-red-700 transition flex items-center gap-1">
+                                    <button type="button" onclick="confirmDelete({{ $dept->id }})"
+                                        class="text-red-500 hover:text-red-700 transition flex items-center gap-1">
                                         🗑️ Hapus
                                     </button>
+                                </form>
+                                <form id="delete-form-{{ $dept->id }}"
+                                    action="{{ route('departments.destroy', $dept->id) }}" method="POST"
+                                    style="display: none;">
+                                    @csrf
+                                    @method('DELETE')
                                 </form>
                             </td>
                         </tr>
@@ -63,3 +76,21 @@
 
     </div>
 @endsection
+<script>
+    function confirmDelete(id) {
+        Swal.fire({
+            title: 'Yakin ingin menghapus?',
+            text: "Data tidak bisa dikembalikan!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#e3342f',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Ya, hapus!',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById(`delete-form-${id}`).submit();
+            }
+        });
+    }
+</script>
