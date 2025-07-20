@@ -25,6 +25,9 @@
                 <a href="{{ route('attendance.index') }}" class="text-gray-600 hover:text-blue-600 transition">
                     Attendance
                 </a>
+                <a href="{{ route('attendance.history') }}" class="text-gray-600 hover:text-blue-600 transition">
+                    Attendance History
+                </a>
             </div>
         </div>
     </nav>
