@@ -3,7 +3,6 @@
 @section('content')
     <div class="p-6 space-y-6">
 
-        {{-- Tombol Tambah --}}
         <div class="flex justify-between items-center">
             <h2 class="text-xl font-semibold text-gray-800">Daftar Attendance</h2>
             <a href="{{ route('attendance.create') }}"
@@ -16,14 +15,12 @@
             </a>
         </div>
 
-        {{-- Alert sukses --}}
         @if (session('success'))
             <div class="bg-green-100 border border-green-300 text-green-700 px-4 py-3 rounded">
                 {{ session('success') }}
             </div>
         @endif
 
-        {{-- Tabel --}}
         <div class="overflow-x-auto">
             <table class="min-w-full border rounded-lg overflow-hidden shadow-sm bg-white">
                 <thead class="bg-gray-50 text-gray-700 text-sm">

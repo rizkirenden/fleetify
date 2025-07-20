@@ -1,5 +1,4 @@
 @if (!isset($attendance))
-    {{-- Form Absen Masuk --}}
     <div class="mb-4">
         <label class="block mb-1">Departemen</label>
         <select name="department_id" id="department-select" class="border w-full px-3 py-2 rounded" required>
@@ -14,11 +13,10 @@
         <label class="block mb-1">Karyawan</label>
         <select name="employee_id" id="employee-select" class="border w-full px-3 py-2 rounded" required>
             <option value="">-- Pilih Karyawan --</option>
-            {{-- Karyawan akan dimuat via JS --}}
+
         </select>
     </div>
 @else
-    {{-- Form Absen Keluar --}}
     <div class="mb-4">
         <label class="block font-semibold">Nama Karyawan:</label>
         <p>{{ $attendance->employee->name }}</p>

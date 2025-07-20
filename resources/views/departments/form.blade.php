@@ -12,7 +12,6 @@
         required>
 </div>
 
-
 <div class="mb-4">
     <label>Jam Maksimum Keluar</label>
     <input type="time" name="max_clock_out_time" class="border w-full"

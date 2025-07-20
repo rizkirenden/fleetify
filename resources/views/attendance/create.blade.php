@@ -27,7 +27,7 @@
         <script>
             document.getElementById('department-select').addEventListener('change', function() {
                 const departmentId = this.value;
-                console.log("Selected department:", departmentId); // Tambahkan ini
+                console.log("Selected department:", departmentId);
 
                 const employeeSelect = document.getElementById('employee-select');
                 employeeSelect.innerHTML = '<option value="">-- Pilih Karyawan --</option>';
@@ -36,7 +36,7 @@
                     fetch(`/employees-by-department/${departmentId}`)
                         .then(response => response.json())
                         .then(data => {
-                            console.log("Employee data:", data); // Tambahkan ini
+                            console.log("Employee data:", data);
                             if (data.length > 0) {
                                 data.forEach(employee => {
                                     const option = document.createElement('option');

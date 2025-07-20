@@ -5,7 +5,6 @@
 @section('content')
     <div class="p-6 space-y-6">
 
-        {{-- Header dan Tombol Tambah --}}
         <div class="flex justify-between items-center">
             <h2 class="text-xl font-semibold text-gray-800">Daftar Karyawan</h2>
             <a href="{{ route('employees.create') }}"
@@ -18,14 +17,12 @@
             </a>
         </div>
 
-        {{-- Alert sukses --}}
         @if (session('success'))
             <div class="bg-green-100 border border-green-300 text-green-700 px-4 py-3 rounded">
                 {{ session('success') }}
             </div>
         @endif
 
-        {{-- Tabel Karyawan --}}
         <div class="overflow-x-auto">
             <table class="min-w-full border border-gray-200 bg-white rounded shadow-sm text-sm">
                 <thead class="bg-gray-50 text-gray-700 uppercase tracking-wider text-xs">
