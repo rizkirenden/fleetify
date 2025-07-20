@@ -21,6 +21,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Department & Employee
 Route::resource('departments', DepartmentController::class);
 Route::resource('employees', EmployeeController::class);
 
@@ -32,7 +33,6 @@ Route::post('/absen-masuk', [AttendanceController::class, 'store'])->name('atten
 Route::put('/absen-keluar/{attendance_id}', [AttendanceController::class, 'update'])->name('attendance.update');
 Route::get('/attendance/history', [AttendanceHistoryController::class, 'index'])->name('attendance.history');
 Route::get('/employees-by-department/{department_id}', [AttendanceController::class, 'getEmployeesByDepartment']);
-
 
 // Log absensi
 Route::get('/log-absensi', [AttendanceHistoryController::class, 'index']);
