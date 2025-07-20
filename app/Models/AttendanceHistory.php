@@ -9,9 +9,6 @@ class AttendanceHistory extends Model
 {
     use HasFactory;
 
-    /**
-     * Kolom yang dapat diisi secara massal.
-     */
     protected $fillable = [
         'employee_id',
         'attendance_id',
@@ -20,19 +17,11 @@ class AttendanceHistory extends Model
         'description',
     ];
 
-    /**
-     * Relasi: AttendanceHistory milik satu Employee.
-     * Menggunakan 'employee_id' sebagai foreign key (bukan PK).
-     */
     public function employee()
     {
         return $this->belongsTo(Employee::class, 'employee_id', 'employee_id');
     }
 
-    /**
-     * Relasi: AttendanceHistory milik satu Attendance.
-     * Menggunakan 'attendance_id' sebagai foreign key (bukan PK).
-     */
     public function attendance()
     {
         return $this->belongsTo(Attendance::class, 'attendance_id', 'attendance_id');

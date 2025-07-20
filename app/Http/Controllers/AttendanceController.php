@@ -58,12 +58,11 @@ class AttendanceController extends Controller
         'clock_in' => $clockInTime,
     ]);
 
-    // Create history for clock in
     AttendanceHistory::create([
         'employee_id' => $request->employee_id,
         'attendance_id' => $attendance->attendance_id,
         'date_attendance' => $clockInTime,
-        'attendance_type' => 1, // 1 for clock in
+        'attendance_type' => 1,
         'description' => 'Status: ' . $clockInStatus .
                         ' (Max: ' . $maxClockInTime->format('H:i') . ')'
     ]);
@@ -95,12 +94,11 @@ class AttendanceController extends Controller
         'clock_out' => $clockOutTime
     ]);
 
-    // Create history for clock out
     AttendanceHistory::create([
         'employee_id' => $attendance->employee_id,
         'attendance_id' => $attendance->attendance_id,
         'date_attendance' => $clockOutTime,
-        'attendance_type' => 2, // 2 for clock out
+        'attendance_type' => 2,
         'description' => 'Status: ' . $clockOutStatus .
                         ' (Min: ' . $maxClockOutTime->format('H:i') . ')'
     ]);
