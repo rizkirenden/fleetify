@@ -31,6 +31,8 @@ Route::get('/attendances/{attendance_id}/edit', [AttendanceController::class, 'e
 Route::post('/absen-masuk', [AttendanceController::class, 'store'])->name('attendance.store');
 Route::put('/absen-keluar/{attendance_id}', [AttendanceController::class, 'update'])->name('attendance.update');
 Route::get('/attendance/history', [AttendanceHistoryController::class, 'index'])->name('attendance.history');
+Route::get('/employees-by-department/{department_id}', [AttendanceController::class, 'getEmployeesByDepartment']);
+
 
 // Log absensi
 Route::get('/log-absensi', [AttendanceHistoryController::class, 'index']);

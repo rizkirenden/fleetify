@@ -25,37 +25,54 @@ class AttendanceController extends Controller
         ]);
     }
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'employee_id' => 'required|string|exists:employees,employee_id',
-            'client_time' => 'nullable|date'
-        ]);
+    public function getEmployeesByDepartment($department_id)
+{
+    $employees = Employee::where('department_id', $department_id)
+        ->select('employee_id', 'name')
+        ->get();
 
-        $clockInTime = $request->filled('client_time')
-            ? Carbon::parse($request->client_time)
-            : now();
+    return response()->json($employees);
+}
 
-        $attendance = Attendance::create([
-            'employee_id' => $request->employee_id,
-            'attendance_id' => uniqid('att_'),
-            'clock_in' => $clockInTime,
-        ]);
 
-        // Create history for clock in
-        AttendanceHistory::create([
-            'employee_id' => $request->employee_id,
-            'attendance_id' => $attendance->attendance_id,
-            'date_attendance' => $clockInTime,
-            'attendance_type' => 1, // 1 for clock in
-            'description' => 'Clock in at ' . $clockInTime->format('Y-m-d H:i:s')
-        ]);
+   public function store(Request $request)
+{
+    $request->validate([
+        'employee_id' => 'required|string|exists:employees,employee_id',
+        'client_time' => 'nullable|date'
+    ]);
 
-        return response()->json([
-            'message' => 'Absen masuk berhasil',
-            'data' => $attendance
-        ], 201);
-    }
+    $clockInTime = $request->filled('client_time')
+        ? Carbon::parse($request->client_time)
+        : now();
+
+    $employee = Employee::findOrFail($request->employee_id);
+    $maxClockInTime = Carbon::parse($employee->department->max_clock_in_time);
+    $clockInStatus = $clockInTime->format('H:i:s') > $maxClockInTime->format('H:i:s')
+        ? 'Terlambat'
+        : 'Tepat waktu';
+
+    $attendance = Attendance::create([
+        'employee_id' => $request->employee_id,
+        'attendance_id' => uniqid('att_'),
+        'clock_in' => $clockInTime,
+    ]);
+
+    // Create history for clock in
+    AttendanceHistory::create([
+        'employee_id' => $request->employee_id,
+        'attendance_id' => $attendance->attendance_id,
+        'date_attendance' => $clockInTime,
+        'attendance_type' => 1, // 1 for clock in
+        'description' => 'Status: ' . $clockInStatus .
+                        ' (Max: ' . $maxClockInTime->format('H:i') . ')'
+    ]);
+
+    return response()->json([
+        'message' => 'Absen masuk berhasil',
+        'data' => $attendance
+    ], 201);
+}
 
     public function edit($attendance_id)
     {
@@ -64,26 +81,33 @@ class AttendanceController extends Controller
     }
 
     public function update(Request $request, $attendance_id)
-    {
-        $attendance = Attendance::where('attendance_id', $attendance_id)->firstOrFail();
-        $clockOutTime = now();
+{
+    $attendance = Attendance::where('attendance_id', $attendance_id)->firstOrFail();
+    $clockOutTime = now();
 
-        $attendance->update([
-            'clock_out' => $clockOutTime
-        ]);
+    $employee = $attendance->employee;
+    $maxClockOutTime = Carbon::parse($employee->department->max_clock_out_time);
+    $clockOutStatus = $clockOutTime->format('H:i:s') < $maxClockOutTime->format('H:i:s')
+        ? 'Pulang cepat'
+        : 'Tepat waktu';
 
-        // Create history for clock out
-        AttendanceHistory::create([
-            'employee_id' => $attendance->employee_id,
-            'attendance_id' => $attendance->attendance_id,
-            'date_attendance' => $clockOutTime,
-            'attendance_type' => 2, // 2 for clock out
-            'description' => 'Clock out at ' . $clockOutTime->format('Y-m-d H:i:s')
-        ]);
+    $attendance->update([
+        'clock_out' => $clockOutTime
+    ]);
 
-        return response()->json([
-            'message' => 'Absen keluar berhasil',
-            'data' => $attendance
-        ]);
-    }
+    // Create history for clock out
+    AttendanceHistory::create([
+        'employee_id' => $attendance->employee_id,
+        'attendance_id' => $attendance->attendance_id,
+        'date_attendance' => $clockOutTime,
+        'attendance_type' => 2, // 2 for clock out
+        'description' => 'Status: ' . $clockOutStatus .
+                        ' (Min: ' . $maxClockOutTime->format('H:i') . ')'
+    ]);
+
+    return response()->json([
+        'message' => 'Absen keluar berhasil',
+        'data' => $attendance
+    ]);
+}
 }

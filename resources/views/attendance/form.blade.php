@@ -2,26 +2,19 @@
     {{-- Form Absen Masuk --}}
     <div class="mb-4">
         <label class="block mb-1">Departemen</label>
-        <select name="department_id" class="border w-full px-3 py-2 rounded" required>
+        <select name="department_id" id="department-select" class="border w-full px-3 py-2 rounded" required>
             <option value="">-- Pilih Departemen --</option>
             @foreach ($departments as $dept)
-                <option value="{{ $dept->id }}" {{ old('department_id') == $dept->id ? 'selected' : '' }}>
-                    {{ $dept->department_name }}
-                </option>
+                <option value="{{ $dept->id }}">{{ $dept->department_name }}</option>
             @endforeach
         </select>
     </div>
 
     <div class="mb-4">
         <label class="block mb-1">Karyawan</label>
-        <select name="employee_id" class="border w-full px-3 py-2 rounded" required>
+        <select name="employee_id" id="employee-select" class="border w-full px-3 py-2 rounded" required>
             <option value="">-- Pilih Karyawan --</option>
-            @foreach ($employees as $empl)
-                <option value="{{ $empl->employee_id }}"
-                    {{ old('employee_id') == $empl->employee_id ? 'selected' : '' }}>
-                    {{ $empl->name }}
-                </option>
-            @endforeach
+            {{-- Karyawan akan dimuat via JS --}}
         </select>
     </div>
 @else

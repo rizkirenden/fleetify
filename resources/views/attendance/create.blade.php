@@ -25,8 +25,35 @@
             ])
         </form>
         <script>
+            document.getElementById('department-select').addEventListener('change', function() {
+                const departmentId = this.value;
+                console.log("Selected department:", departmentId); // Tambahkan ini
+
+                const employeeSelect = document.getElementById('employee-select');
+                employeeSelect.innerHTML = '<option value="">-- Pilih Karyawan --</option>';
+
+                if (departmentId) {
+                    fetch(`/employees-by-department/${departmentId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log("Employee data:", data); // Tambahkan ini
+                            if (data.length > 0) {
+                                data.forEach(employee => {
+                                    const option = document.createElement('option');
+                                    option.value = employee.employee_id;
+                                    option.text = employee.name;
+                                    employeeSelect.appendChild(option);
+                                });
+                            } else {
+                                const option = document.createElement('option');
+                                option.value = "";
+                                option.text = "Tidak ada karyawan di departemen ini";
+                                employeeSelect.appendChild(option);
+                            }
+                        });
+                }
+            });
             document.getElementById('clientTime').value = new Date().toISOString();
-            // atau format lain yang sesuai
         </script>
     </div>
 @endsection
