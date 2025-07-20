@@ -15,7 +15,7 @@ return new class extends Migration
         $table->id(); //PK
         $table->string('employee_id', 50)->unique();
         $table->unsignedBigInteger('department_id');
-        $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade'); //FK -> tabel departments field id
+        $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
         $table->string('name', 255);
         $table->text('address');
         $table->timestamps();

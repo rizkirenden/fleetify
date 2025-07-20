@@ -13,8 +13,8 @@ return new class extends Migration
     {
        Schema::create('attendance_histories', function (Blueprint $table) {
     $table->id(); // PK
-    $table->string('employee_id', 50);      // <-- tambahkan kolom ini
-    $table->string('attendance_id', 100);   // <-- tambahkan kolom ini
+    $table->string('employee_id', 50);
+    $table->string('attendance_id', 100);
     $table->timestamp('date_attendance');
     $table->tinyInteger('attendance_type')->comment('1 = in, 2 = out');
     $table->text('description')->nullable();

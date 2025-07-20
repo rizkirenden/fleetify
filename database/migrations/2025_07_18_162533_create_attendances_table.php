@@ -13,7 +13,7 @@ return new class extends Migration
     {
        Schema::create('attendances', function (Blueprint $table) {
     $table->id(); // PK
-    $table->string('employee_id', 50); // <-- tambahkan kolom ini
+    $table->string('employee_id', 50);
     $table->string('attendance_id', 100)->unique();
     $table->timestamp('clock_in')->nullable();
     $table->timestamp('clock_out')->nullable();
